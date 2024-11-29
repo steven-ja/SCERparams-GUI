@@ -20,7 +20,7 @@ const SCERPAConfigGenerator = () => {
       intermolecularDistance: 10,
     },
     circuit: {
-      structure: Array(25).fill('1'), // 25 elements as in the original config
+      structure: Array(25).fill('0'), // 25 elements as in the original config
       drivers: [{ name: 'Dr1', value: -4.5 }],
     },
     stackPhase: [2],
@@ -82,11 +82,11 @@ const SCERPAConfigGenerator = () => {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto ">
       <h1 className="text-2xl font-bold text-center">SCERPA Configuration Generator</h1>
       
-      <Tabs defaultValue="solver" className="w-[800px] bg-muted">
-        <TabsList className="bg-muted text-muted-foreground inline-flex h-9 items-center justify-center rounded-lg p-1 grid w-full grid-cols-3">
+      <Tabs defaultValue="solver" className="w-[800px]">
+        <TabsList className="text-muted-foreground inline-flex items-center justify-center rounded-lg p-1 grid w-full grid-cols-3 h-24">
           <TabsTrigger value="solver">Solver</TabsTrigger>
           <TabsTrigger value="molecule">Molecule</TabsTrigger>
           <TabsTrigger value="circuit">Circuit</TabsTrigger>
@@ -99,23 +99,41 @@ const SCERPAConfigGenerator = () => {
               <CardTitle>Solver Configuration</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4">
-                <div className="flex items-center space-x-20 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm ">
+              <div className="grid gap-4 mtot-1">
+                <div className="flex items-center space-x-20 mtot-1 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm">
                   <Label htmlFor="solver-type">Solver Type</Label>
                   <Select 
                     value={config.solver.magcadImporter.toString()} 
                     onValueChange={(value) => updateConfig('solver', 'magcadImporter', parseInt(value))}
+                    className="text-card-foreground w-12 text-destructive-foreground "
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Select Solver" />
+                      <SelectValue placeholder="Select Solver" className="w-24 text-center text-card-foreground text-destructive-foreground text-primary-foreground"/>
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="0">Matlab</SelectItem>
-                      <SelectItem value="1">Magcad</SelectItem>
+                      <SelectItem value="0" className="text-card-foreground">Matlab</SelectItem>
+                      <SelectItem value="1" className="text-secondary-foreground">Magcad</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
-                
+            <CardContent>
+  <div className="grid gap-4 mtot-1">
+    <div className="flex items-center space-x-20 mtot-1 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm">
+      <Label htmlFor="solver-type">Solver Type</Label>
+      <Select 
+        value={config.solver.magcadImporter.toString()} 
+        onValueChange={(value) => updateConfig('solver', 'magcadImporter', parseInt(value))}
+        className="text-card-foreground w-12"
+      >
+        <SelectTrigger>
+          <SelectValue placeholder="Select Solver" className="w-24 text-center"/>
+        </SelectTrigger>
+        <SelectContent className="bg-background border border-input">
+          <SelectItem value="0" className="text-foreground hover:bg-accent hover:text-accent-foreground">Matlab</SelectItem>
+          <SelectItem value="1" className="text-foreground hover:bg-accent hover:text-accent-foreground">Magcad</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>                
                 <div className="flex items-center space-x-2">
                   <Label htmlFor="verbosity">Verbosity Level</Label>
                   <Input 
@@ -123,7 +141,8 @@ const SCERPAConfigGenerator = () => {
                     value={config.runtime.verbosity}
                     onChange={(e) => updateConfig('runtime', 'verbosity', parseInt(e.target.value))}
                     min="0" 
-                    max="5" 
+                    max="3" 
+                    className="w-24 text-center text-card-foreground"
                   />
                 </div>
               </div>
@@ -138,22 +157,24 @@ const SCERPAConfigGenerator = () => {
               <CardTitle>Molecule Configuration</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4">
-                <div className="flex items-center space-x-2">
+              <div className="grid gap-4 mt-2">
+                <div className="flex items-center space-x-2 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 mt-2">
                   <Label htmlFor="molecule-name">Molecule Name</Label>
                   <Input 
                     id="molecule-name"
                     value={config.molecule.name}
                     onChange={(e) => updateNestedConfig('molecule', 'molecule', 'name', e.target.value)}
+                    className="w-48 text-center text-card-foreground"
                   />
                 </div>
                 
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 items-center justify-center">
                   <Label htmlFor="intermolecular-distance">Intermolecular Distance</Label>
                   <Input 
                     type="number" 
                     value={config.molecule.intermolecularDistance}
                     onChange={(e) => updateNestedConfig('molecule', 'molecule', 'intermolecularDistance', parseFloat(e.target.value))}
+                    className="w-24 text-card-foreground"
                   />
                 </div>
               </div>
@@ -168,9 +189,9 @@ const SCERPAConfigGenerator = () => {
               <CardTitle>Circuit Configuration</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4">
-                <div className="flex items-center space-x-2">
-                  <Label>Circuit Structure</Label>
+              <div className="grid gap-4 mt-2">
+                <div className="flex items-center space-x-20 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-1  text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm ">
+                  {/* <Label>Circuit Structure</Label> */}
                   <div className="grid grid-cols-5 gap-2">
                     {config.circuit.structure.map((value, index) => (
                       <Input 
@@ -178,15 +199,15 @@ const SCERPAConfigGenerator = () => {
                         type="text" 
                         value={value}
                         onChange={(e) => handleStructureChange(index, e.target.value)}
-                        className="w-12 text-center"
+                        className="w-12 text-center text-card-foreground"
                       />
                     ))}
                   </div>
                 </div>
                 
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center align-center space-x-2 text-card-foreground">
                   <Label>Drivers</Label>
-                  <div className="flex space-x-2">
+                  <div className="flex space-x-2 text-card-foreground">
                     <Input 
                       placeholder="Driver Name" 
                       value={config.circuit.drivers[0].name}
@@ -198,7 +219,7 @@ const SCERPAConfigGenerator = () => {
                           circuit: { ...prev.circuit, drivers: newDrivers }
                         }));
                       }}
-                      className="w-24"
+                      className="w-24 text-card-foreground"
                     />
                     <Input 
                       type="number" 
@@ -212,7 +233,7 @@ const SCERPAConfigGenerator = () => {
                           circuit: { ...prev.circuit, drivers: newDrivers }
                         }));
                       }}
-                      className="w-24"
+                      className="w-24 text-card-foreground"
                     />
                   </div>
                 </div>
@@ -226,6 +247,7 @@ const SCERPAConfigGenerator = () => {
                       ...prev,
                       stackPhase: [parseFloat(e.target.value)]
                     }))}
+                    className="text-card-foreground"
                   />
                 </div>
               </div>
@@ -235,13 +257,13 @@ const SCERPAConfigGenerator = () => {
       </Tabs>
       
       {/* Plotting Settings */}
-      <Card>
+      <Card className="flex items-center space-x-2 p-1 mt-2 w-[800px]">
         <CardHeader>
           <CardTitle>Plotting Settings</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4">
-            <div className="flex items-center space-x-2">
+          <div className="grid gap-4 mt-2 ">
+            <div className="flex items-center space-x-20 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm ">
               <Label htmlFor="plot-1d-charge">Plot 1D Charge</Label>
               <Switch 
                 checked={config.plotting.plot1DCharge}
@@ -256,6 +278,7 @@ const SCERPAConfigGenerator = () => {
                 value={config.plotting.outputPath}
                 onChange={(e) => updateConfig('plotting', 'outputPath', e.target.value)}
                 placeholder="Enter output path"
+                className="w-48 text-center text-card-foreground"
               />
             </div>
             
@@ -265,6 +288,7 @@ const SCERPAConfigGenerator = () => {
                 type="number" 
                 value={config.runtime.plotIntermediateSteps}
                 onChange={(e) => updateConfig('runtime', 'plotIntermediateSteps', parseInt(e.target.value))}
+                className="w-24 text-card-foreground"
               />
             </div>
           </div>
