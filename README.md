@@ -30,17 +30,17 @@ pnpm run tauri build
 
 ## Features
 - Modern GUI for SCERPA simulation configuration
-- Cross-platform support (Windows and Linux)
+- Cross-platform support (Windows, Linux and Mac)
 - Easy-to-use configuration management
 
 ## Configuration Options
-- Solver selection
-- Molecule configuration
-- Intermolecular distance
-- Circuit structure
-- Driver values
-- Clock and runtime settings
-- Plotting options
+- Circuit import type selection
+- Molecule configuration (BisFe ...)
+- Intermolecular distance ()
+- Circuit structure 
+- Driver values 
+- Clock and waveforms settings
+- Plotting options (1D, 2D, 3D plots)
 
 ## Build Requirements
 - Rust 1.70.0 or later
