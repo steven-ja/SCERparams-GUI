@@ -87,8 +87,8 @@ const SCERPAConfigGenerator = () => {
       
       <Tabs defaultValue="solver" className="w-[800px]">
         <TabsList className="text-muted-foreground inline-flex items-center justify-center rounded-lg p-1 grid w-full grid-cols-3 h-24">
-          <TabsTrigger value="solver">Solver</TabsTrigger>
-          <TabsTrigger value="molecule">Molecule</TabsTrigger>
+          <TabsTrigger value="solver">Config</TabsTrigger>
+          <TabsTrigger value="molecule">Waveform</TabsTrigger>
           <TabsTrigger value="circuit">Circuit</TabsTrigger>
         </TabsList>
         
@@ -144,7 +144,7 @@ const SCERPAConfigGenerator = () => {
                   <Input 
                     id="molecule-name"
                     value={config.molecule.name}
-                    onChange={(e) => updateNestedConfig('molecule', 'molecule', 'name', e.target.value)}
+                    onChange={(e) => updateConfig('molecule', 'name', e.target.value)}
                     className="w-48 text-center text-card-foreground"
                   />
                 </div>
@@ -154,7 +154,8 @@ const SCERPAConfigGenerator = () => {
                   <Input 
                     type="number" 
                     value={config.molecule.intermolecularDistance}
-                    onChange={(e) => updateNestedConfig('molecule', 'molecule', 'intermolecularDistance', parseFloat(e.target.value))}
+                    onChange=
+                    {(e) => updateConfig('molecule', 'intermolecularDistance', parseFloat(e.target.value))}
                     className="w-24 text-card-foreground"
                   />
                 </div>
@@ -243,8 +244,8 @@ const SCERPAConfigGenerator = () => {
           <CardTitle>Plotting Settings</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 mt-2 ">
-            <div className="flex items-center space-x-20 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm ">
+          <div className="grid gap-4 mt-2">
+            <div className="flex items-center space-x-2">
               <Label htmlFor="plot-1d-charge">Plot 1D Charge</Label>
               <Switch 
                 checked={config.plotting.plot1DCharge}
