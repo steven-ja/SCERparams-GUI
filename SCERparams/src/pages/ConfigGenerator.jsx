@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+
+
 const SCERPAConfigGenerator = () => {
   // Initial state based on the MATLAB configuration
   const [config, setConfig] = useState({
@@ -80,11 +82,11 @@ const SCERPAConfigGenerator = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 space-y-4">
+    <div className="container mx-auto">
       <h1 className="text-2xl font-bold text-center">SCERPA Configuration Generator</h1>
       
-      <Tabs defaultValue="solver">
-        <TabsList className="grid w-full grid-cols-3">
+      <Tabs defaultValue="solver" className="w-[800px] bg-muted">
+        <TabsList className="bg-muted text-muted-foreground inline-flex h-9 items-center justify-center rounded-lg p-1 grid w-full grid-cols-3">
           <TabsTrigger value="solver">Solver</TabsTrigger>
           <TabsTrigger value="molecule">Molecule</TabsTrigger>
           <TabsTrigger value="circuit">Circuit</TabsTrigger>
@@ -98,7 +100,7 @@ const SCERPAConfigGenerator = () => {
             </CardHeader>
             <CardContent>
               <div className="grid gap-4">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-20 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm ">
                   <Label htmlFor="solver-type">Solver Type</Label>
                   <Select 
                     value={config.solver.magcadImporter.toString()} 
