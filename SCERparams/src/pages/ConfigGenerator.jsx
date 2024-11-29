@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Input } from "react-ui";
-import { Label } from "react-ui";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "react-ui";
-import { Switch } from "react-ui";
-import { Button } from "react-ui";
-import { Card, CardContent, CardHeader, CardTitle } from "react-ui";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "react-ui";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const SCERPAConfigGenerator = () => {
   // Initial state based on the MATLAB configuration
