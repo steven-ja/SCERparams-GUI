@@ -99,41 +99,22 @@ const SCERPAConfigGenerator = () => {
               <CardTitle>Solver Configuration</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4 mtot-1">
-                <div className="flex items-center space-x-20 mtot-1 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm">
-                  <Label htmlFor="solver-type">Solver Type</Label>
-                  <Select 
-                    value={config.solver.magcadImporter.toString()} 
-                    onValueChange={(value) => updateConfig('solver', 'magcadImporter', parseInt(value))}
-                    className="text-card-foreground w-12 text-destructive-foreground "
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select Solver" className="w-24 text-center text-card-foreground text-destructive-foreground text-primary-foreground"/>
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="0" className="text-card-foreground">Matlab</SelectItem>
-                      <SelectItem value="1" className="text-secondary-foreground">Magcad</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-            <CardContent>
-  <div className="grid gap-4 mtot-1">
-    <div className="flex items-center space-x-20 mtot-1 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm">
-      <Label htmlFor="solver-type">Solver Type</Label>
-      <Select 
-        value={config.solver.magcadImporter.toString()} 
-        onValueChange={(value) => updateConfig('solver', 'magcadImporter', parseInt(value))}
-        className="text-card-foreground w-12"
-      >
-        <SelectTrigger>
-          <SelectValue placeholder="Select Solver" className="w-24 text-center"/>
-        </SelectTrigger>
-        <SelectContent className="bg-background border border-input">
-          <SelectItem value="0" className="text-foreground hover:bg-accent hover:text-accent-foreground">Matlab</SelectItem>
-          <SelectItem value="1" className="text-foreground hover:bg-accent hover:text-accent-foreground">Magcad</SelectItem>
-        </SelectContent>
-      </Select>
-    </div>                
+                <div className="grid gap-4 mtot-1">
+                    <div className="flex items-center space-x-2 mtot-1 text-secondary-foreground">
+                    <Label htmlFor="solver-type">Solver Type</Label>
+                    <Select 
+                        value={config.solver.magcadImporter.toString()} 
+                        onValueChange={(value) => updateConfig('solver', 'magcadImporter', parseInt(value))}
+                    >
+                        <SelectTrigger className='w-auto text-secondary-foreground'>
+                        <SelectValue placeholder="Select Solver"/>
+                        </SelectTrigger>
+                        <SelectContent>
+                        <SelectItem value="0">Matlab</SelectItem>
+                        <SelectItem value="1">Magcad</SelectItem>
+                        </SelectContent>
+                    </Select>
+                    </div>                
                 <div className="flex items-center space-x-2">
                   <Label htmlFor="verbosity">Verbosity Level</Label>
                   <Input 
@@ -142,7 +123,7 @@ const SCERPAConfigGenerator = () => {
                     onChange={(e) => updateConfig('runtime', 'verbosity', parseInt(e.target.value))}
                     min="0" 
                     max="3" 
-                    className="w-24 text-center text-card-foreground"
+                    className="w-24 text-center text-secondary-foreground"
                   />
                 </div>
               </div>
