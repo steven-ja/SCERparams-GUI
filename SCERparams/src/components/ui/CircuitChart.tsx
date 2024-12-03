@@ -51,14 +51,17 @@ const chartConfig = {
   phase1: {
     label: "Phase 1",
     color: "hsl(var(--chart-1))",
+    colorVal: "--chart-1"
   },
   phase2: {
     label: "Phase 2",
     color: "hsl(var(--chart-2))",
+    colorVal: "--chart-2"
   },
   phase3: {
     label: "Phase 3",
     color: "hsl(var(--chart-3))",
+    colorVal: "--chart-3"
     
   },
 } satisfies ChartConfig;
@@ -112,10 +115,10 @@ export function Chart() {
             <Line
               dataKey="phase1"
               type="linear"
-              stroke="var(--chart-1)"
+              stroke="hsl(var(--chart-1))"
               strokeWidth={2}
               dot={{
-                fill: "var(--chart-1)",
+                fill: "hsl(var(--chart-1))",
               }}
               activeDot={{
                 r: 6,

@@ -283,7 +283,7 @@ const ChartLegendContent = React.forwardRef<
       <div
         ref={ref}
         className={cn(
-          "flex items-center justify-center gap-4",
+          "flex items-center justify-center gap-4 mt-2",
           verticalAlign === "top" ? "pb-3" : "pt-3",
           className
         )}
@@ -299,13 +299,15 @@ const ChartLegendContent = React.forwardRef<
                 "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground"
               )}
             >
+              {/* Debug color value */}
+              {console.log('Legend item color:', item.color,`hsl(var(${item.color.split('var(')[1].split(')')[0]}))`)}
               {itemConfig?.icon && !hideIcon ? (
                 <itemConfig.icon />
               ) : (
                 <div
-                  className="h-2 w-2 shrink-0 rounded-[2px]"
+                  className="h-3 w-3 shrink-0 rounded-[2px] chart-legend"
                   style={{
-                    backgroundColor: item.color,
+                    backgroundColor:  //,
                   }}
                 />
               )}
