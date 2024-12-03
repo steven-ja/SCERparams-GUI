@@ -28,8 +28,24 @@ const SCERPAConfigGenerator = () => {
       plotIntermediateSteps: -1,
       verbosity: 2,
     },
+//      %PLOT settings
+// plotSettings.plot_waveform = 1;
+// plotSettings.plot_3dfig = 1;
+// plotSettings.plot_1DCharge = 1;
+// plotSettings.plot_logic = 1;
+// plotSettings.plot_potential = 1;
+// plotSettings.plotSpan = 3;
+// plotSettings.fig_saver = 1;
+// plotSettings.plotList = 0;
     plotting: {
       plot1DCharge: true,
+      plot3DFig: true,
+      plotWaveform: false,
+      plotLogic: false,
+      plotPotential: false,
+      figSaver: true,
+      plotList: false,
+      plotspan: 0,
       outputPath: '',
     }
   });
@@ -100,8 +116,8 @@ const SCERPAConfigGenerator = () => {
             </CardHeader>
             <CardContent>
                 <div className="grid gap-4 mtot-1">
-                    <div className="flex items-center space-x-2 mtot-1 text-secondary-foreground">
-                    <Label htmlFor="solver-type">Solver Type</Label>
+                    <div className="flex items-center space-x-2 mtot-1 text-secondary-foreground w-[400px]">
+                    <Label htmlFor="solver-type">Circuit Type</Label>
                     <Select 
                         value={config.solver.magcadImporter.toString()} 
                         onValueChange={(value) => updateConfig('solver', 'magcadImporter', parseInt(value))}
@@ -114,6 +130,20 @@ const SCERPAConfigGenerator = () => {
                         <SelectItem value="1">Magcad</SelectItem>
                         </SelectContent>
                     </Select>
+                    <Label htmlFor="molecule-name">Molecule Name</Label>
+                    <Select 
+                          value={config.molecule.name} 
+                          onValueChange={(value) => updateConfig('molecule', 'name', value)}
+                    >
+                        <SelectTrigger className='w-120 text-secondary-foreground'>
+                        <SelectValue placeholder="Molecule Name"/>
+                        </SelectTrigger>
+                        <SelectContent>
+                        <SelectItem value="bisfe_4">bisfe_4 (Bisferrocene)</SelectItem>
+                        <SelectItem value="ethane">ethane </SelectItem>
+                        <SelectItem value="2">... </SelectItem>
+                        </SelectContent> 
+                    </Select>
                     </div>                
                 <div className="flex items-center space-x-2">
                   <Label htmlFor="verbosity">Verbosity Level</Label>
@@ -125,10 +155,94 @@ const SCERPAConfigGenerator = () => {
                     max="3" 
                     className="w-24 text-center text-secondary-foreground"
                   />
+                  <Label htmlFor="intermolecular-distance">Intermolecular Distance</Label>
+                  <Input 
+                    type="number" 
+                    value={config.molecule.intermolecularDistance}
+                    onChange=
+                    {(e) => updateConfig('molecule', 'intermolecularDistance', parseFloat(e.target.value))}
+                    className="w-24 text-card-foreground"
+                  />
                 </div>
               </div>
             </CardContent>
           </Card>
+          {/* Plotting Settings */}
+          <Card className="items-center space-x-2 p-1 mt-2 w-[800px]">
+            <CardHeader>
+              <CardTitle>Plotting Settings</CardTitle>
+            </CardHeader>
+            <CardContent>
+
+              <div className="grid gap-4 mt-2">
+                <div className="flex items-center space-x-2 align-center justify-center ">
+                  <Label htmlFor="plot-1d-charge">Plot 1D Charge</Label>
+                  <Switch 
+                    checked={config.plotting.plot1DCharge}
+                    onCheckedChange={(checked) => updateConfig('plotting', 'plot1DCharge', checked)}
+                  />
+                  <Label htmlFor="plot-3dfig">Plot 3D Fig</Label>
+                  <Switch 
+                    checked={config.plotting.plot3DFig}
+                    onCheckedChange={(checked) => updateConfig('plotting', 'plot3DFig', checked)}
+                  />
+                  <Label htmlFor="plot-waveform">Plot Waveform</Label>
+                  <Switch 
+                    checked={config.plotting.plotWaveform}
+                    onCheckedChange={(checked) => updateConfig('plotting', 'plotWaveform', checked)}
+                  />
+                  </div>
+                  <div className="flex items-center space-x-2 justify-center">
+                  <Label htmlFor="plot-logic">Plot Logic</Label>
+                  <Switch 
+                    checked={config.plotting.plotLogic}
+                    onCheckedChange={(checked) => updateConfig('plotting', 'plotLogic', checked)}
+                  />
+                  <Label htmlFor="fig_saver">Fig Saver</Label>
+                  <Switch 
+                    checked={config.plotting.figSaver}
+                    onCheckedChange={(checked) => updateConfig('plotting', 'figSaver', checked)}
+                  />
+                  <Label htmlFor="plot-list">Plot List</Label>
+                  <Switch 
+                    checked={config.plotting.plotList}
+                    onCheckedChange={(checked) => updateConfig('plotting', 'plotList', checked)}
+                  />
+                  <Label htmlFor="plot-span">Plot Span</Label>
+                  <Input 
+                    type="number" 
+                    value={config.plotting.plotspan}
+                    onChange={(e) => updateConfig('plotting', 'plotspan', parseInt(e.target.value))}
+                    className="w-24 text-card-foreground"
+                    max="3"
+                    min="0"
+                  />
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <Label htmlFor="output-path">Output Path</Label>
+                  <Input 
+                    id="output-path"
+                    value={config.plotting.outputPath}
+                    onChange={(e) => updateConfig('plotting', 'outputPath', e.target.value)}
+                    placeholder="Enter output path"
+                    className="w-48 text-center text-card-foreground"
+                  />
+                  <Label htmlFor="intermediate-steps">Plot Intermediate Steps</Label>
+                  <Input 
+                    type="number" 
+                    value={config.runtime.plotIntermediateSteps}
+                    onChange={(e) => updateConfig('runtime', 'plotIntermediateSteps', parseInt(e.target.value))}
+                    className="w-24 text-card-foreground"
+                  />
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  
+                </div>
+              </div>
+            </CardContent>
+        </Card>
         </TabsContent>
         
         {/* Molecule Configuration */}
@@ -238,44 +352,7 @@ const SCERPAConfigGenerator = () => {
         </TabsContent>
       </Tabs>
       
-      {/* Plotting Settings */}
-      <Card className="flex items-center space-x-2 p-1 mt-2 w-[800px]">
-        <CardHeader>
-          <CardTitle>Plotting Settings</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 mt-2">
-            <div className="flex items-center space-x-2">
-              <Label htmlFor="plot-1d-charge">Plot 1D Charge</Label>
-              <Switch 
-                checked={config.plotting.plot1DCharge}
-                onCheckedChange={(checked) => updateConfig('plotting', 'plot1DCharge', checked)}
-              />
-            </div>
-            
-            <div className="flex items-center space-x-2">
-              <Label htmlFor="output-path">Output Path</Label>
-              <Input 
-                id="output-path"
-                value={config.plotting.outputPath}
-                onChange={(e) => updateConfig('plotting', 'outputPath', e.target.value)}
-                placeholder="Enter output path"
-                className="w-48 text-center text-card-foreground"
-              />
-            </div>
-            
-            <div className="flex items-center space-x-2">
-              <Label htmlFor="intermediate-steps">Plot Intermediate Steps</Label>
-              <Input 
-                type="number" 
-                value={config.runtime.plotIntermediateSteps}
-                onChange={(e) => updateConfig('runtime', 'plotIntermediateSteps', parseInt(e.target.value))}
-                className="w-24 text-card-foreground"
-              />
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      
       
       {/* Save Configuration Button */}
       <div className="flex justify-center">
