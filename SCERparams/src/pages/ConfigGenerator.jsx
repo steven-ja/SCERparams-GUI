@@ -99,10 +99,10 @@ const SCERPAConfigGenerator = () => {
 
   return (
     <div className="container mx-auto ">
-      <h1 className="text-2xl font-bold text-center">SCERPA Configuration Generator</h1>
+      <h1 className="text-2xl font-bold text-center ">SCERPA Configuration Generator</h1>
       
-      <Tabs defaultValue="solver" className="w-[800px]">
-        <TabsList className="text-muted-foreground inline-flex items-center justify-center rounded-lg p-1 grid w-full grid-cols-3 h-24">
+      <Tabs defaultValue="solver" className="w-[800px] hover:border">
+        <TabsList className="text-muted-foreground inline-flex items-center justify-center rounded-lg p-1 grid w-full grid-cols-3 h-24 hover:border">
           <TabsTrigger value="solver">Config</TabsTrigger>
           <TabsTrigger value="molecule">Waveform</TabsTrigger>
           <TabsTrigger value="circuit">Circuit</TabsTrigger>
@@ -122,7 +122,7 @@ const SCERPAConfigGenerator = () => {
                         value={config.solver.magcadImporter.toString()} 
                         onValueChange={(value) => updateConfig('solver', 'magcadImporter', parseInt(value))}
                     >
-                        <SelectTrigger className='w-auto text-secondary-foreground'>
+                        <SelectTrigger className='w-auto text-secondary-foreground hover:border'>
                         <SelectValue placeholder="Select Solver"/>
                         </SelectTrigger>
                         <SelectContent>
@@ -135,7 +135,7 @@ const SCERPAConfigGenerator = () => {
                           value={config.molecule.name} 
                           onValueChange={(value) => updateConfig('molecule', 'name', value)}
                     >
-                        <SelectTrigger className='w-120 text-secondary-foreground'>
+                        <SelectTrigger className='w-120 text-secondary-foreground hover:border'>
                         <SelectValue placeholder="Molecule Name"/>
                         </SelectTrigger>
                         <SelectContent>
@@ -219,7 +219,7 @@ const SCERPAConfigGenerator = () => {
                   />
                 </div>
                 
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 justify-center">
                   <Label htmlFor="output-path">Output Path</Label>
                   <Input 
                     id="output-path"
