@@ -663,6 +663,7 @@ html, body, #root {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --chart-foreground: 60 9.1% 97.8%;
     --align-items: center
   }
 }
@@ -805,6 +806,16 @@ html, body, #root {
   height: var(--radix-select-trigger-height);
 }
 
+.chart-legend {
+  margin-right: 10px;
+  width: 50px;
+  border-style: solid;
+}
+.h-chart {
+  min-height: 300px;
+  height: 300px;
+} 
+
 .h-px {
   height: 1px;
 }
@@ -941,6 +952,8 @@ html, body, #root {
 .rounded-full {
   border-radius: 9999px;
 }
+
+
 
 .rounded-lg {
   border-radius: var(--radius);

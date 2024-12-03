@@ -7,9 +7,37 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+// import CircuitChart from "../components/ui/CircuitChart/Component";
+import { Chart } from './../components/ui/CircuitChart';
+
 
 
 const SCERPAConfigGenerator = () => {
+  // constant to move to other files
+  // Define clock parameters
+  const clockLow = -2;
+  const clockHigh = 2;
+  const clockStep = 3;
+
+  // Generate elementary vectors
+  const linspace = (start, end, n) =>
+  Array.from({ length: n }, (_, i) => start + (i * (end - start)) / (n - 1));
+
+  const pSwitch = linspace(clockLow, clockHigh, clockStep);
+  const pHold = Array(clockStep).fill(clockHigh);
+  const pRelease = linspace(clockHigh, clockLow, clockStep);
+  const pReset = Array(clockStep).fill(clockLow);
+
+  // Create pCycle
+  const pCycle = [...pSwitch, ...pHold, ...pRelease, ...pReset];
+
+  // Generate stack phases
+  const stackPhase = [
+  [...pCycle, ...pCycle, ...pReset, ...pReset], // stack_phase(1,:)
+  [...pReset, ...pCycle, ...pCycle, ...pReset], // stack_phase(2,:)
+  [...pReset, ...pReset, ...pCycle, ...pCycle], // stack_phase(3,:)
+  ];
+
   // Initial state based on the MATLAB configuration
   const [config, setConfig] = useState({
     solver: {
@@ -125,7 +153,7 @@ const SCERPAConfigGenerator = () => {
       <Tabs defaultValue="solver" className="w-[800px] hover:border py-1">
         <TabsList className="text-muted-foreground inline-flex items-center justify-center rounded-lg p-1 grid w-full grid-cols-3 h-24 hover:border">
           <TabsTrigger value="solver">Config</TabsTrigger>
-          <TabsTrigger value="molecule">Waveform</TabsTrigger>
+          <TabsTrigger value="waveform">Waveform</TabsTrigger>
           <TabsTrigger value="circuit">Circuit</TabsTrigger>
         </TabsList>
         
@@ -276,37 +304,9 @@ const SCERPAConfigGenerator = () => {
         </Card>
         </TabsContent>
         
-        {/* Molecule Configuration */}
-        <TabsContent value="molecule">
-          <Card>
-            <CardHeader>
-              <CardTitle>Molecule Configuration</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-4 mt-2">
-                <div className="flex items-center space-x-2 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 mt-2">
-                  <Label htmlFor="molecule-name">Molecule Name</Label>
-                  <Input 
-                    id="molecule-name"
-                    value={config.molecule.name}
-                    onChange={(e) => updateConfig('molecule', 'name', e.target.value)}
-                    className="w-48 text-center text-card-foreground"
-                  />
-                </div>
-                
-                <div className="flex items-center space-x-2 items-center justify-center">
-                  <Label htmlFor="intermolecular-distance">Intermolecular Distance</Label>
-                  <Input 
-                    type="number" 
-                    value={config.molecule.intermolecularDistance}
-                    onChange=
-                    {(e) => updateConfig('molecule', 'intermolecularDistance', parseFloat(e.target.value))}
-                    className="w-24 text-card-foreground"
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+        {/* Waveform Configuration */}
+        <TabsContent value="waveform">
+            <Chart />
         </TabsContent>
         
         {/* Circuit Configuration */}
