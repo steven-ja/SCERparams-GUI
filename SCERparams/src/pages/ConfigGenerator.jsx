@@ -50,6 +50,26 @@ const SCERPAConfigGenerator = () => {
     }
   });
 
+  // const [dimensions, setDimensions] = useState({
+  //   width: window.innerWidth,
+  //   height: window.innerHeight
+  // });
+
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setDimensions({
+  //       width: window.innerWidth,
+  //       height: window.innerHeight
+  //     });
+  //   };
+
+  //   window.addEventListener('resize', handleResize);
+
+  //   return () => {
+  //     window.removeEventListener('resize', handleResize);
+  //   };
+  // }, []);
+
   const updateConfig = (section, key, value) => {
     setConfig(prev => ({
       ...prev,
@@ -98,7 +118,7 @@ const SCERPAConfigGenerator = () => {
   };
 
   return (
-    <div className="container mx-auto ">
+    <div className="container mx-auto w-screen h-screen flex-grow justify-center">
       <h1 className="text-2xl font-bold text-center ">SCERPA Configuration Generator</h1>
       
       <Tabs defaultValue="solver" className="w-[800px] hover:border">
@@ -122,7 +142,7 @@ const SCERPAConfigGenerator = () => {
                         value={config.solver.magcadImporter.toString()} 
                         onValueChange={(value) => updateConfig('solver', 'magcadImporter', parseInt(value))}
                     >
-                        <SelectTrigger className='w-auto text-secondary-foreground hover:border'>
+                        <SelectTrigger className='w-auto text-secondary-foreground'>
                         <SelectValue placeholder="Select Solver"/>
                         </SelectTrigger>
                         <SelectContent>
@@ -135,7 +155,7 @@ const SCERPAConfigGenerator = () => {
                           value={config.molecule.name} 
                           onValueChange={(value) => updateConfig('molecule', 'name', value)}
                     >
-                        <SelectTrigger className='w-120 text-secondary-foreground hover:border'>
+                        <SelectTrigger className='w-120 text-secondary-foreground'>
                         <SelectValue placeholder="Molecule Name"/>
                         </SelectTrigger>
                         <SelectContent>
