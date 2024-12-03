@@ -27,6 +27,7 @@ const SCERPAConfigGenerator = () => {
     runtime: {
       plotIntermediateSteps: -1,
       verbosity: 2,
+      damping: 0.6,
     },
 //      %PLOT settings
 // plotSettings.plot_waveform = 1;
@@ -118,10 +119,10 @@ const SCERPAConfigGenerator = () => {
   };
 
   return (
-    <div className="container mx-auto w-screen h-screen flex-grow justify-center">
-      <h1 className="text-2xl font-bold text-center ">SCERPA Configuration Generator</h1>
+    <div className="container mx-auto justify-center">
+      <h1 className="text-2xl font-bold text-center">SCERPA Configuration Generator</h1>
       
-      <Tabs defaultValue="solver" className="w-[800px] hover:border">
+      <Tabs defaultValue="solver" className="w-[800px] hover:border py-1">
         <TabsList className="text-muted-foreground inline-flex items-center justify-center rounded-lg p-1 grid w-full grid-cols-3 h-24 hover:border">
           <TabsTrigger value="solver">Config</TabsTrigger>
           <TabsTrigger value="molecule">Waveform</TabsTrigger>
@@ -160,10 +161,20 @@ const SCERPAConfigGenerator = () => {
                         </SelectTrigger>
                         <SelectContent>
                         <SelectItem value="bisfe_4">bisfe_4 (Bisferrocene)</SelectItem>
-                        <SelectItem value="ethane">ethane </SelectItem>
-                        <SelectItem value="2">... </SelectItem>
+                        <SelectItem value="butane">butane </SelectItem>
+                        <SelectItem value="decatriene">decatriene </SelectItem>
                         </SelectContent> 
                     </Select>
+                    <Label htmlFor="damping">Damping</Label>
+                    <Input 
+                      type="number" 
+                      value={config.runtime.damping}
+                      onChange={(e) => updateConfig('runtime', 'damping', parseFloat(e.target.value))}
+                      min="0" 
+                      max="1"
+                      step="0.1" 
+                      className="w-24 text-center text-secondary-foreground"
+                    />
                     </div>                
                 <div className="flex items-center space-x-2">
                   <Label htmlFor="verbosity">Verbosity Level</Label>
@@ -175,7 +186,7 @@ const SCERPAConfigGenerator = () => {
                     max="3" 
                     className="w-24 text-center text-secondary-foreground"
                   />
-                  <Label htmlFor="intermolecular-distance">Intermolecular Distance</Label>
+                  <Label htmlFor="intermolecular-distance">Intermolecular Distance [nm] </Label>
                   <Input 
                     type="number" 
                     value={config.molecule.intermolecularDistance}
@@ -187,13 +198,13 @@ const SCERPAConfigGenerator = () => {
               </div>
             </CardContent>
           </Card>
+
           {/* Plotting Settings */}
           <Card className="items-center space-x-2 p-1 mt-2 w-[800px]">
             <CardHeader>
               <CardTitle>Plotting Settings</CardTitle>
             </CardHeader>
             <CardContent>
-
               <div className="grid gap-4 mt-2">
                 <div className="flex items-center space-x-2 align-center justify-center ">
                   <Label htmlFor="plot-1d-charge">Plot 1D Charge</Label>
