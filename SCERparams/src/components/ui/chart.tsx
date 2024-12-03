@@ -200,7 +200,8 @@ const ChartTooltipContent = React.forwardRef<
                   "flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
                   indicator === "dot" && "items-center"
                 )}
-              >
+              > 
+                {console.log('tooltip item color:', indicatorColor, indicator)}
                 {formatter && item?.value !== undefined && item.name ? (
                   formatter(item.value, item.name, item, index, item.payload)
                 ) : (
@@ -213,7 +214,7 @@ const ChartTooltipContent = React.forwardRef<
                           className={cn(
                             "shrink-0 rounded-[2px] border-[--color-border] bg-[--color-bg]",
                             {
-                              "h-2.5 w-2.5": indicator === "dot",
+                              "h-2.5 w-2.5 chart-legend": indicator === "dot",
                               "w-1": indicator === "line",
                               "w-0 border-[1.5px] border-dashed bg-transparent":
                                 indicator === "dashed",
@@ -222,9 +223,10 @@ const ChartTooltipContent = React.forwardRef<
                           )}
                           style={
                             {
-                              "--color-bg": indicatorColor,
-                              "--color-border": indicatorColor,
-                            } as React.CSSProperties
+                              backgroundColor: indicatorColor,
+                              borderColor: indicatorColor
+                              // "--min-height": "50px"
+                            }
                           }
                         />
                       )
@@ -300,14 +302,15 @@ const ChartLegendContent = React.forwardRef<
               )}
             >
               {/* Debug color value */}
-              {console.log('Legend item color:', item.color,`hsl(var(${item.color.split('var(')[1].split(')')[0]}))`)}
+              {/* {console.log('Legend item color:', item.color)} */}
               {itemConfig?.icon && !hideIcon ? (
                 <itemConfig.icon />
               ) : (
                 <div
-                  className="h-3 w-3 shrink-0 rounded-[2px] chart-legend"
+                  className="h-2 w-2 shrink-0 rounded-[2px] chart-legend"
                   style={{
-                    backgroundColor:  //,
+                    backgroundColor:  item.color,//,
+                    // borderColer: item.color
                   }}
                 />
               )}

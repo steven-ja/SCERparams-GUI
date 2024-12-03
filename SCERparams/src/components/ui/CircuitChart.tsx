@@ -81,7 +81,7 @@ export function Chart() {
             accessibilityLayer
             data={chartData}
             margin={{
-              top: 2,
+              top: 7,
               left: 20,
               right: 2,
               bottom: 20,
@@ -96,19 +96,19 @@ export function Chart() {
               label={{ value: "Unit of Time", position: "bottom", offset: 0 }}
             />
             <YAxis 
-             label={{ value: "Electric Field [V/m]", position: "left", offset: -20, angle: -90, dy: -70 }}
-             tickLine={false}
+              label={{ value: "Electric Field [V/m]", position: "left", offset: -20, angle: -90, dy: -70 }}
+              tickLine={false}
               axisLine={false}
               tickMargin={8}
+              
             />
             <ChartTooltip
               cursor={false}
               defaultIndex={1}
-              // content={<ChartTooltipContent 
-              content={<ChartTooltipContent formatter={(value, name, label) => `${chartConfig[name as keyof typeof chartConfig]?.label ||
-                name}: ${value.toLocaleString()}`} 
-                hideLabel
-                className="text-[hsl(var(--chart-foreground))]" />}
+              content={<ChartTooltipContent 
+              // content={<ChartTooltipContent formatter={(value, name, label) => `${chartConfig[name as keyof typeof chartConfig]?.label ||
+                // name}: ${value.toLocaleString()}`} 
+                />}
              
             />
             <ChartLegend content={<ChartLegendContent/>} />
