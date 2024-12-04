@@ -148,6 +148,7 @@ const ChartTooltipContent = React.forwardRef<
         !labelKey && typeof label === "string"
           ? config[label as keyof typeof config]?.label || label
           : itemConfig?.label
+      const time_unit = item.payload.index
 
       if (labelFormatter) {
         return (
@@ -156,12 +157,13 @@ const ChartTooltipContent = React.forwardRef<
           </div>
         )
       }
+      
 
       if (!value) {
         return null
       }
 
-      return <div className={cn("font-medium", labelClassName)}>{value}</div>
+      return <div className={cn("font-medium", labelClassName)}>{"T.U.: " + time_unit}</div>
     }, [
       label,
       labelFormatter,
@@ -192,16 +194,17 @@ const ChartTooltipContent = React.forwardRef<
             const key = `${nameKey || item.name || item.dataKey || "value"}`
             const itemConfig = getPayloadConfigFromPayload(config, item, key)
             const indicatorColor = color || item.payload.fill || item.color
+            
 
             return (
               <div
                 key={item.dataKey}
                 className={cn(
-                  "flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
+                  "flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground h-screem",
                   indicator === "dot" && "items-center"
                 )}
               > 
-                {console.log('tooltip item color:', indicatorColor, indicator)}
+                {console.log('tooltip item color:', indicatorColor, indicator, item.dataKey, key, index, ref, item.name, item.value, item.payload, item.payload.index)}
                 {formatter && item?.value !== undefined && item.name ? (
                   formatter(item.value, item.name, item, index, item.payload)
                 ) : (
@@ -231,6 +234,7 @@ const ChartTooltipContent = React.forwardRef<
                         />
                       )
                     )}
+                    {/* {console.log(nestLabel)} */}
                     <div
                       className={cn(
                         "flex flex-1 justify-between leading-none",
@@ -240,12 +244,15 @@ const ChartTooltipContent = React.forwardRef<
                       <div className="grid gap-1.5">
                         {nestLabel ? tooltipLabel : null}
                         <span className="text-muted-foreground">
-                          {itemConfig?.label || item.name}
+                          {itemConfig?.label || item.name}: 
                         </span>
                       </div>
+                      {/* <div className="text-muted-foreground">: </div> */}
+                      
+                      {console.log(item.value)}
                       {item.value && (
                         <span className="font-mono font-medium tabular-nums text-foreground">
-                          {item.value.toLocaleString()}
+                            {item.value.toLocaleString()}
                         </span>
                       )}
                     </div>
