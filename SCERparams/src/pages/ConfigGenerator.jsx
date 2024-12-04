@@ -48,7 +48,7 @@ const SCERPAConfigGenerator = () => {
       intermolecularDistance: 10,
     },
     circuit: {
-      structure: Array(25).fill('0'), // 25 elements as in the original config
+      structure: Array(7*4).fill('0'), // 25 elements as in the original config
       drivers: [{ name: 'Dr1', value: -4.5 }],
     },
     stackPhase: [2],
@@ -319,7 +319,7 @@ const SCERPAConfigGenerator = () => {
               <div className="grid gap-4 mt-2">
                 <div className="flex items-center space-x-20 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-1  text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm ">
                   {/* <Label>Circuit Structure</Label> */}
-                  <div className="grid grid-cols-5 gap-2">
+                  <div className="grid grid-cols-7 gap-2">
                     {config.circuit.structure.map((value, index) => (
                       <Input 
                         key={index} 
@@ -332,7 +332,7 @@ const SCERPAConfigGenerator = () => {
                   </div>
                 </div>
                 
-                <div className="flex items-center align-center space-x-2 text-card-foreground">
+                <div className="flex items-center align-center space-x-2 text-card-foreground justify-center">
                   <Label>Drivers</Label>
                   <div className="flex space-x-2 text-card-foreground">
                     <Input 
@@ -362,20 +362,24 @@ const SCERPAConfigGenerator = () => {
                       }}
                       className="w-24 text-card-foreground"
                     />
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-2">
-                  <Label>Stack Phase</Label>
-                  <Input 
+                    <Label className="w-[100px]"># Phases</Label>
+                    <Input 
                     type="number" 
                     value={config.stackPhase[0]}
                     onChange={(e) => setConfig(prev => ({
                       ...prev,
                       stackPhase: [parseFloat(e.target.value)]
                     }))}
+                    max="4"
+                    min="0"
+                    step="1"
                     className="text-card-foreground"
                   />
+                  </div>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  
                 </div>
               </div>
             </CardContent>
