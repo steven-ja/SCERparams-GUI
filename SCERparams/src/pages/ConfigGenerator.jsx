@@ -7,8 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-// import CircuitChart from "../components/ui/CircuitChart/Component";
+// import custom components
 import { Chart } from './../components/ui/CircuitChart';
+import CircuitStructureTable from '../components/ui/CircuitStructureTable';
+
 
 
 
@@ -108,6 +110,7 @@ const SCERPAConfigGenerator = () => {
       }
     }));
   };
+  
 
   const updateNestedConfig = (section, nestedSection, key, value) => {
     setConfig(prev => ({
@@ -122,15 +125,21 @@ const SCERPAConfigGenerator = () => {
     }));
   };
 
-  const handleStructureChange = (index, value) => {
-    const newStructure = [...config.circuit.structure];
-    newStructure[index] = value;
+  // const handleStructureChange = (index, value) => {
+  //   const newStructure = [...config.circuit.structure];
+  //   newStructure[index] = value;
+  //   setConfig(prev => ({
+  //     ...prev,
+  //     circuit: {
+  //       ...prev.circuit,
+  //       structure: newStructure
+  //     }
+  //   }));
+  // };
+  const handleStructureChange = (newStructure) => {
     setConfig(prev => ({
       ...prev,
-      circuit: {
-        ...prev.circuit,
-        structure: newStructure
-      }
+      circuit: { ...prev.circuit, structure: newStructure.flat() } // flatten the 2D array if needed
     }));
   };
 
@@ -317,10 +326,16 @@ const SCERPAConfigGenerator = () => {
             </CardHeader>
             <CardContent>
               <div className="grid gap-4 mt-2">
+                
+              
                 <div className="flex items-center space-x-20 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-1  text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm ">
                   {/* <Label>Circuit Structure</Label> */}
                   <div className="grid grid-cols-7 gap-2">
-                    {config.circuit.structure.map((value, index) => (
+                    <CircuitStructureTable 
+                      initialStructure={[config.circuit.structure]} // Pass as 2D array
+                      onChange={handleStructureChange}
+                    />
+                    {/* {config.circuit.structure.map((value, index) => (
                       <Input 
                         key={index} 
                         type="text" 
@@ -328,7 +343,7 @@ const SCERPAConfigGenerator = () => {
                         onChange={(e) => handleStructureChange(index, e.target.value)}
                         className="w-12 text-center text-card-foreground"
                       />
-                    ))}
+                    ))} */}
                   </div>
                 </div>
                 
