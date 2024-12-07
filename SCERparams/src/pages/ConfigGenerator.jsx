@@ -327,16 +327,13 @@ const SCERPAConfigGenerator = () => {
             </CardHeader>
             <CardContent>
               <div className="grid gap-4 mt-2">
-                
-              
+
                 <div className="flex flex-col items-center space-y-4">
                   <CircuitStructureTable 
                     initialStructure={config.circuit.structure}
                     onChange={handleStructureChange}
                   />
                 </div>
-    
-
              
                 <div className="flex items-center align-center space-x-2 text-card-foreground justify-center">
                   <Label>Drivers</Label>
@@ -392,8 +389,7 @@ const SCERPAConfigGenerator = () => {
           </Card>
         </TabsContent>
       </Tabs>
-      
-      
+    
       
       {/* Save Configuration Button */}
       <div className="flex justify-center">
