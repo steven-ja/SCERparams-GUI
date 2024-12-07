@@ -375,10 +375,10 @@ const SCERPAConfigGenerator = () => {
                     <Label className="w-[100px]"># Phases</Label>
                     <Input 
                     type="number" 
-                    value={config.stackPhase[0]}
+                    value={config.circuit.stackPhase[0]}
                     onChange={(e) => setConfig(prev => ({
                       ...prev,
-                      stackPhase: [parseFloat(e.target.value)]
+                      circuit: {...prev.circuit, stackPhase: parseFloat(e.target.value)}
                     }))}
                     max="4"
                     min="0"
