@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 // import custom components
 import { Chart } from './../components/ui/CircuitChart';
 import CircuitStructureTable from '../components/ui/CircuitStructureTable';
-import { Plus as PlusIcon, Minus as MinusIcon} from "lucide-react";
+
 
 
 
@@ -52,23 +52,30 @@ const SCERPAConfigGenerator = () => {
     },
     circuit: {
       structure: Array(7).fill().map(() => Array(4).fill('0')), // 7x4 matrix      
-      drivers: [{ name: 'Dr1', value: -4.5 }],
+      drivers: [
+        { name: 'Dr1', value: 4.5, time_units: 1 },
+        { name: 'Dr2', value: -4.5, time_units: 1 },
+        { name: 'Dr3', value: 4.5, time_units: 1 },
+        { name: 'Dr4', value: -4.5, time_units: 1 }, 
+        { name: 'Dr5', value: 4.5, time_units: 1 },
+        { name: 'Dr6', value: -4.5, time_units: 1 },
+      ],
+      stackPhase: [2],
     },
-    stackPhase: [2],
     runtime: {
       plotIntermediateSteps: -1,
       verbosity: 2,
       damping: 0.6,
     },
-//      %PLOT settings
-// plotSettings.plot_waveform = 1;
-// plotSettings.plot_3dfig = 1;
-// plotSettings.plot_1DCharge = 1;
-// plotSettings.plot_logic = 1;
-// plotSettings.plot_potential = 1;
-// plotSettings.plotSpan = 3;
-// plotSettings.fig_saver = 1;
-// plotSettings.plotList = 0;
+    // %PLOT settings
+    // plotSettings.plot_waveform = 1;
+    // plotSettings.plot_3dfig = 1;
+    // plotSettings.plot_1DCharge = 1;
+    // plotSettings.plot_logic = 1;
+    // plotSettings.plot_potential = 1;
+    // plotSettings.plotSpan = 3;
+    // plotSettings.fig_saver = 1;
+    // plotSettings.plotList = 0;
     plotting: {
       plot1DCharge: true,
       plot3DFig: true,
