@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 // import custom components
 import { Chart } from './../components/ui/CircuitChart';
 import CircuitStructureTable from '../components/ui/CircuitStructureTable';
+import { Plus as PlusIcon, Minus as MinusIcon} from "lucide-react";
 
 
 
@@ -50,7 +51,7 @@ const SCERPAConfigGenerator = () => {
       intermolecularDistance: 10,
     },
     circuit: {
-      structure: Array(7*4).fill('0'), // 25 elements as in the original config
+      structure: Array(7).fill().map(() => Array(4).fill('0')), // 7x4 matrix      
       drivers: [{ name: 'Dr1', value: -4.5 }],
     },
     stackPhase: [2],
@@ -125,23 +126,23 @@ const SCERPAConfigGenerator = () => {
     }));
   };
 
-  // const handleStructureChange = (index, value) => {
-  //   const newStructure = [...config.circuit.structure];
-  //   newStructure[index] = value;
-  //   setConfig(prev => ({
-  //     ...prev,
-  //     circuit: {
-  //       ...prev.circuit,
-  //       structure: newStructure
-  //     }
-  //   }));
-  // };
-  const handleStructureChange = (newStructure) => {
+  const handleStructureChange = (index, value) => {
+    const newStructure = [...config.circuit.structure];
+    newStructure[index] = value;
     setConfig(prev => ({
       ...prev,
-      circuit: { ...prev.circuit, structure: newStructure.flat() } // flatten the 2D array if needed
+      circuit: {
+        ...prev.circuit,
+        structure: newStructure
+      }
     }));
   };
+  // const handleStructureChange = (newStructure) => {
+  //   setConfig(prev => ({
+  //     ...prev,
+  //     circuit: { ...prev.circuit, structure: newStructure.flat() } // flatten the 2D array if needed
+  //   }));
+  // };
 
   const handleSaveConfig = async () => {
     try {
@@ -322,31 +323,72 @@ const SCERPAConfigGenerator = () => {
         <TabsContent value="circuit">
           <Card>
             <CardHeader>
-              <CardTitle>Circuit Configuration</CardTitle>
+              <CardTitle>MATLAB Circuit Configuration</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid gap-4 mt-2">
                 
               
-                <div className="flex items-center space-x-20 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-1  text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm ">
-                  {/* <Label>Circuit Structure</Label> */}
-                  <div className="grid grid-cols-7 gap-2">
-                    <CircuitStructureTable 
-                      initialStructure={[config.circuit.structure]} // Pass as 2D array
-                      onChange={handleStructureChange}
-                    />
-                    {/* {config.circuit.structure.map((value, index) => (
-                      <Input 
-                        key={index} 
-                        type="text" 
-                        value={value}
-                        onChange={(e) => handleStructureChange(index, e.target.value)}
-                        className="w-12 text-center text-card-foreground"
-                      />
-                    ))} */}
-                  </div>
-                </div>
-                
+                <div className="flex flex-col items-center space-y-4">
+                <CircuitStructureTable 
+        initialStructure={config.circuit.structure}
+        onChange={handleStructureChange}
+      />
+</div>
+    
+      {/* {Array(Math.ceil(config.circuit.structure.length / 7)).fill(0).map((_, rowIndex) => (
+        <div key={rowIndex} className="flex items-center space-x-2">
+          {config.circuit.structure.slice(rowIndex * 7, (rowIndex + 1) * 7).map((value, colIndex) => {
+            const index = rowIndex * 7 + colIndex;
+            const getBorderColor = (val) => {
+              if(['Dr1', 'Dr1_c', 'Dr2', 'Dr2_c'].includes(val)) return 'border-blue-500';
+              switch(val) {
+                case '1': return 'border-green-500';
+                case '2': return 'border-yellow-500'; 
+                case '3': return 'border-red-500';
+                case '4': return 'border-purple-500';
+                default: return 'border-gray-200';
+              }
+            };
+            
+            return (
+              <Select
+                key={index}
+                value={value.toString()}
+                onValueChange={(newValue) => handleStructureChange(index, newValue)}
+              >
+                <SelectTrigger 
+                  className={`w-16 h-16 text-center ${getBorderColor(value)} border-2`}
+                >
+                  <SelectValue>{value || '0'}</SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  {['0','1','2','3','4','Dr1','Dr1_c','Dr2','Dr2_c'].map(opt => (
+                    <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            );
+          })} */}
+
+          {/* <Button
+            onClick={() => {
+              const newStructure = [...config.circuit.structure];
+              newStructure.splice(rowIndex * 7, 7);
+              setConfig(prev => ({
+                ...prev,
+                circuit: {
+                  ...prev.circuit,
+                  structure: newStructure
+                }
+              }));
+            }}
+            variant="outline"
+            size="icon"
+          >
+            <MinusIcon className="h-4 w-4" />
+          </Button> */}
+             
                 <div className="flex items-center align-center space-x-2 text-card-foreground justify-center">
                   <Label>Drivers</Label>
                   <div className="flex space-x-2 text-card-foreground">

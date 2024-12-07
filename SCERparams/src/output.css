@@ -750,6 +750,10 @@ html, body, #root {
   margin-bottom: 0.25rem;
 }
 
+.ml-2 {
+  margin-left: 1rem;
+}
+
 .mt-2 {
   margin-top: 1rem;
 }
