@@ -330,64 +330,13 @@ const SCERPAConfigGenerator = () => {
                 
               
                 <div className="flex flex-col items-center space-y-4">
-                <CircuitStructureTable 
-        initialStructure={config.circuit.structure}
-        onChange={handleStructureChange}
-      />
-</div>
+                  <CircuitStructureTable 
+                    initialStructure={config.circuit.structure}
+                    onChange={handleStructureChange}
+                  />
+                </div>
     
-      {/* {Array(Math.ceil(config.circuit.structure.length / 7)).fill(0).map((_, rowIndex) => (
-        <div key={rowIndex} className="flex items-center space-x-2">
-          {config.circuit.structure.slice(rowIndex * 7, (rowIndex + 1) * 7).map((value, colIndex) => {
-            const index = rowIndex * 7 + colIndex;
-            const getBorderColor = (val) => {
-              if(['Dr1', 'Dr1_c', 'Dr2', 'Dr2_c'].includes(val)) return 'border-blue-500';
-              switch(val) {
-                case '1': return 'border-green-500';
-                case '2': return 'border-yellow-500'; 
-                case '3': return 'border-red-500';
-                case '4': return 'border-purple-500';
-                default: return 'border-gray-200';
-              }
-            };
-            
-            return (
-              <Select
-                key={index}
-                value={value.toString()}
-                onValueChange={(newValue) => handleStructureChange(index, newValue)}
-              >
-                <SelectTrigger 
-                  className={`w-16 h-16 text-center ${getBorderColor(value)} border-2`}
-                >
-                  <SelectValue>{value || '0'}</SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  {['0','1','2','3','4','Dr1','Dr1_c','Dr2','Dr2_c'].map(opt => (
-                    <SelectItem key={opt} value={opt}>{opt}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            );
-          })} */}
 
-          {/* <Button
-            onClick={() => {
-              const newStructure = [...config.circuit.structure];
-              newStructure.splice(rowIndex * 7, 7);
-              setConfig(prev => ({
-                ...prev,
-                circuit: {
-                  ...prev.circuit,
-                  structure: newStructure
-                }
-              }));
-            }}
-            variant="outline"
-            size="icon"
-          >
-            <MinusIcon className="h-4 w-4" />
-          </Button> */}
              
                 <div className="flex items-center align-center space-x-2 text-card-foreground justify-center">
                   <Label>Drivers</Label>
