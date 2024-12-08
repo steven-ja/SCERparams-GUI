@@ -19,7 +19,8 @@ const formatStackPhases = (phases) => {
 };
 
 export const generateMatlabFile = (config) => {
-    const matlabCode = `clear all
+    const matlabCode = `
+clear all
 close all
 
 % solver

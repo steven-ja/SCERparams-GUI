@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Chart } from './../components/ui/CircuitChart';
 import CircuitStructureTable from '../components/ui/CircuitStructureTable';
 import { circuitPresets } from '../components/ui/CircuitPresets';
+import { saveWithDialog } from '../lib/matlab';
 
 
 
@@ -34,11 +35,16 @@ const SCERPAConfigGenerator = () => {
   const pCycle = [...pSwitch, ...pHold, ...pRelease, ...pReset];
 
   // Generate stack phases
-  const stackPhase = [
-  [...pCycle, ...pCycle, ...pReset, ...pReset], // stack_phase(1,:)
-  [...pReset, ...pCycle, ...pCycle, ...pReset], // stack_phase(2,:)
-  [...pReset, ...pReset, ...pCycle, ...pCycle], // stack_phase(3,:)
-  ];
+  // const stackPhase = [
+  // [...pCycle, ...pCycle, ...pReset, ...pReset], // stack_phase(1,:)
+  // [...pReset, ...pCycle, ...pCycle, ...pReset], // stack_phase(2,:)
+  // [...pReset, ...pReset, ...pCycle, ...pCycle], // stack_phase(3,:)
+  // ];
+  const stackPhase= [
+    [2, 2, 2],    // phase 1
+    [-2, 2, 2],   // phase 2
+    [-2, -2, 2]   // phase 3
+  ]
 
   // Initial state based on the MATLAB configuration
   const [config, setConfig] = useState({
@@ -53,13 +59,13 @@ const SCERPAConfigGenerator = () => {
       structure: Array(7).fill().map(() => Array(4).fill('0')), // 7x4 matrix      
       drivers: [
         { name: 'Dr1', value: 4.5, time_units: 1 },
-        // { name: 'Dr2', value: -4.5, time_units: 1 },
-        // { name: 'Dr3', value: 4.5, time_units: 1 },
-        // { name: 'Dr4', value: -4.5, time_units: 1 }, 
-        // { name: 'Dr5', value: 4.5, time_units: 1 },
-        // { name: 'Dr6', value: -4.5, time_units: 1 },
+        { name: 'Dr2', value: -4.5, time_units: 1 },
+        { name: 'Dr3', value: 4.5, time_units: 1 },
+        { name: 'Dr4', value: -4.5, time_units: 1 }, 
+        { name: 'Dr5', value: 4.5, time_units: 1 },
+        { name: 'Dr6', value: -4.5, time_units: 1 },
       ],
-      stackPhase: [2],
+      stackPhase: stackPhase,
       numPhases: stackPhase.length,
     },
     runtime: {
@@ -167,15 +173,36 @@ const SCERPAConfigGenerator = () => {
 
   const handleSaveConfig = async () => {
     try {
-      // In a real app, you'd use Tauri invoke to save the configuration
+      const saved = await saveWithDialog(config);
+      console.log(saved);
+      if (saved){
       console.log('Saving configuration:', config);
-      await invoke('save_configuration', { config });
+      // await invoke('save_configuration', { config });
       alert('Configuration saved successfully!');
+      }
     } catch (error) {
       console.error('Failed to save configuration', error);
       alert('Failed to save configuration');
     }
   };
+
+  // const handleSave = async () => {
+  //   try {
+        
+  //       if (saved) {
+  //           toast({
+  //               title: "Success",
+  //               description: "MATLAB file saved successfully",
+  //           });
+  //       }
+  //   } catch (error) {
+  //       toast({
+  //           title: "Error",
+  //           description: "Failed to save MATLAB file",
+  //           variant: "destructive",
+  //       });
+  //   }
+  // };
 
   return (
     <div className="container mx-auto justify-center">
