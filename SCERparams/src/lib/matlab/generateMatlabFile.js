@@ -6,21 +6,44 @@ const formatStructureMatrix = (structure) => {
     ).join(';\n                     ');
 };
 
-const formatDrivers = (drivers) => {
-    return drivers.map(driver => 
-        `    '${driver.name}'   ${Array(3).fill(driver.value).join(' ')}`
-    ).join('\n');
+// const formatDrivers = (drivers) => {
+//     return drivers.map(driver => 
+//         `    '${driver.name}'   ${Array(3).fill(driver.value).join(' ')}`
+//     ).join('\n');
+
+// const formatDrivers = (drivers) => {
+//     return drivers.map(driver => 
+//         `    '${driver.name}'   ${driver.value >= 0 ? '+' : '-'}${Math.abs(driver.value)} ${driver.value >= 0 ? '+' : '-'}${Math.abs(driver.value)} ${driver.value >= 0 ? '+' : '-'}${Math.abs(driver.value)}`
+//     ).join('\n');
+// };
+
+const formatDrivers = (drivers, stackPhaseLength) => {
+    return drivers.map(driver => {
+        const valueString = Array(stackPhaseLength)
+            .fill(`${driver.value >= 0 ? '+' : '-'}${Math.abs(driver.value)}`)
+            .join(' ');
+        return `    '${driver.name}'   ${valueString}`;
+    }).join('\n');
 };
+
+// const formatStackPhases = (phases) => {
+//     return phases.map((phase, index) => 
+//         `circuit.stack_phase(${index + 1},:) = [${phase.join(' ')}];`
+//     ).join('\n');
+// };
 
 const formatStackPhases = (phases) => {
-    return phases.map((phase, index) => 
-        `circuit.stack_phase(${index + 1},:) = [${phase.join(' ')}];`
-    ).join('\n');
+    return phases.map((phase, index) => {
+        const formattedPhase = phase.map(value => 
+            `${value >= 0 ? '+' : '-'}${Math.abs(value)}`
+        );
+        return `circuit.stack_phase(${index + 1},:) = [${formattedPhase.join(' ')}];`;
+    }).join('\n');
 };
 
+
 export const generateMatlabFile = (config) => {
-    const matlabCode = `
-clear all
+    const matlabCode = `clear all
 close all
 
 % solver
@@ -38,7 +61,7 @@ circuit.structure = {${formatStructureMatrix(config.circuit.structure)}
  
 %drivers
 circuit.Values_Dr = {
-${formatDrivers(config.circuit.drivers)}
+${formatDrivers(config.circuit.drivers, config.circuit.stackPhase.length)}
 };
 
 %clock

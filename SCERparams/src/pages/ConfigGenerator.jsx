@@ -56,7 +56,14 @@ const SCERPAConfigGenerator = () => {
       intermolecularDistance: 10,
     },
     circuit: {
-      structure: Array(7).fill().map(() => Array(4).fill('0')), // 7x4 matrix      
+      structure: [
+        ['0', '0', '0', '0', 'Dr1', 'Dr2', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '1', '1', '0', '0', '0', '0'],
+        ['Dr3', 'Dr4', '1', '1', '2', '2', '2', '2', '3', '3'],
+        ['0', '0', '0', '0', '1', '1', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', 'Dr5', 'Dr6', '0', '0', '0', '0']
+    ],
+    // Array(7).fill().map(() => Array(4).fill('0')), // 7x4 matrix      
       drivers: [
         { name: 'Dr1', value: 4.5, time_units: 1 },
         { name: 'Dr2', value: -4.5, time_units: 1 },
