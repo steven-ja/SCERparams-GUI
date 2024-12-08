@@ -9,17 +9,24 @@ import { Plus as PlusIcon, Minus as MinusIcon } from "lucide-react";
 const CircuitStructureTable = ({ initialStructure, onChange }) => {
   // Initialize with a 7x4 matrix
   const [structure, setStructure] = useState(
-    Array(4).fill().map(() => Array(7).fill('0')) // 4 rows × 7 columns
+    // Array(4).fill().map(() => Array(7).fill('0')) // 4 rows × 7 columns
+     [
+      ['0', '0', '0', '0', 'Dr1', 'Dr2', '0', '0', '0', '0'],
+      ['0', '0', '0', '0', '1', '1', '0', '0', '0', '0'],
+      ['Dr3', 'Dr4', '1', '1', '2', '2', '2', '2', '3', '3'],
+      ['0', '0', '0', '0', '1', '1', '0', '0', '0', '0'],
+      ['0', '0', '0', '0', 'Dr5', 'Dr6', '0', '0', '0', '0']
+    ],
   );
 
   const getBorderColor = (val) => {
-    if(['Dr1', 'Dr1_c', 'Dr2', 'Dr2_c'].includes(val)) return 'border-blue-500';
+    if(['Dr1', 'Dr2', 'Dr3', 'Dr4', 'Dr5', 'Dr6'].includes(val)) return "#800000";
     switch(val) {
-      case '1': return 'border-green-500';
-      case '2': return 'border-yellow-500'; 
-      case '3': return 'border-red-500';
-      case '4': return 'border-purple-500';
-      default: return 'border-gray-200';
+      case '1': return "hsl(var(--chart-1))";
+      case '2': return "hsl(var(--chart-2))"; 
+      case '3': return "hsl(var(--chart-3))";
+      case '4': return "hsl(var(--chart-4))";
+      default: return "";
     }
   };
 
@@ -94,8 +101,9 @@ const CircuitStructureTable = ({ initialStructure, onChange }) => {
                     type="text" 
                     value={cell}
                     onChange={(e) => handleCellChange(rowIndex, colIndex, e)}
-                    className="w-12 text-center text-card-foreground"
-                />
+                    className={`w-12 text-center text-card-foreground p-0`}
+                    style={{ borderColor: getBorderColor(cell.toString()) }}
+                /> 
               ))}
               
             </div>

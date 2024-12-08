@@ -34,12 +34,16 @@ const pReset = Array(clockStep).fill(clockLow);
 
 const pCycle = [...pSwitch, ...pHold, ...pRelease, ...pReset];
 
+// const stackPhase = [
+//   [...pCycle, ...pCycle, ...pReset, ...pReset],
+//   [...pReset, ...pCycle, ...pCycle, ...pReset],
+//   [...pReset, ...pReset, ...pCycle, ...pCycle],
+// ];
 const stackPhase = [
-  [...pCycle, ...pCycle, ...pReset, ...pReset],
-  [...pReset, ...pCycle, ...pCycle, ...pReset],
-  [...pReset, ...pReset, ...pCycle, ...pCycle],
-];
-
+  [2, 2, 2],    // phase 1
+  [-2, 2, 2],   // phase 2
+  [-2, -2, 2]   // phase 3
+]
 const chartData = stackPhase[0].map((_, idx) => ({
   index: idx + 1,
   phase1: stackPhase[0][idx],

@@ -14,8 +14,6 @@ import { circuitPresets } from '../components/ui/CircuitPresets';
 
 
 
-
-
 const SCERPAConfigGenerator = () => {
   // constant to move to other files
   // Define clock parameters
@@ -55,13 +53,14 @@ const SCERPAConfigGenerator = () => {
       structure: Array(7).fill().map(() => Array(4).fill('0')), // 7x4 matrix      
       drivers: [
         { name: 'Dr1', value: 4.5, time_units: 1 },
-        { name: 'Dr2', value: -4.5, time_units: 1 },
-        { name: 'Dr3', value: 4.5, time_units: 1 },
-        { name: 'Dr4', value: -4.5, time_units: 1 }, 
-        { name: 'Dr5', value: 4.5, time_units: 1 },
-        { name: 'Dr6', value: -4.5, time_units: 1 },
+        // { name: 'Dr2', value: -4.5, time_units: 1 },
+        // { name: 'Dr3', value: 4.5, time_units: 1 },
+        // { name: 'Dr4', value: -4.5, time_units: 1 }, 
+        // { name: 'Dr5', value: 4.5, time_units: 1 },
+        // { name: 'Dr6', value: -4.5, time_units: 1 },
       ],
       stackPhase: [2],
+      numPhases: stackPhase.length,
     },
     runtime: {
       plotIntermediateSteps: -1,
@@ -120,6 +119,20 @@ const SCERPAConfigGenerator = () => {
     }));
   };
   
+  // Add to your existing component:
+  const handlePresetChange = (presetKey) => {
+    const preset = circuitPresets[presetKey];
+    setConfig(prev => ({
+        ...prev,
+        circuit: {
+            ...prev.circuit,
+            structure: preset.structure,
+            drivers: preset.drivers,
+            stackPhase: preset.stackPhase
+        }
+    }));
+    {console.log(preset.structure, ...config.circuit.structure)}
+  };
 
   const updateNestedConfig = (section, nestedSection, key, value) => {
     setConfig(prev => ({
@@ -156,7 +169,7 @@ const SCERPAConfigGenerator = () => {
     try {
       // In a real app, you'd use Tauri invoke to save the configuration
       console.log('Saving configuration:', config);
-      // await invoke('save_configuration', { config });
+      await invoke('save_configuration', { config });
       alert('Configuration saved successfully!');
     } catch (error) {
       console.error('Failed to save configuration', error);
@@ -376,10 +389,10 @@ const SCERPAConfigGenerator = () => {
                     <Label className="w-[100px]"># Phases</Label>
                     <Input 
                     type="number" 
-                    value={config.circuit.stackPhase[0]}
+                    value={config.circuit.numPhases}
                     onChange={(e) => setConfig(prev => ({
                       ...prev,
-                      circuit: {...prev.circuit, stackPhase: parseFloat(e.target.value)}
+                      circuit: {...prev.circuit, numPhases: parseFloat(e.target.value)}
                     }))}
                     max="4"
                     min="0"
@@ -387,6 +400,25 @@ const SCERPAConfigGenerator = () => {
                     className="text-card-foreground"
                   />
                   </div>
+                </div>
+
+                <div className="flex items-center space-x-2 mtot-1">
+                  <Label htmlFor="circuit-preset">Circuit Preset</Label>
+                  <Select 
+                      onValueChange={handlePresetChange}
+                  >
+                      <SelectTrigger className='w-[220px] text-secondary-foreground'>
+                          <SelectValue placeholder="Select Preset"/>
+                      </SelectTrigger>
+                      <SelectContent>
+                          {Object.entries(circuitPresets).map(([key, preset]) => (
+                              <SelectItem value={key}>
+                                  {preset.name}
+                                  {console.log(key, preset.name)}
+                              </SelectItem>
+                          ))}
+                      </SelectContent>
+                  </Select>
                 </div>
                 
                 <div className="flex items-center space-x-2">

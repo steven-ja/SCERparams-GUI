@@ -1037,6 +1037,10 @@ html, body, #root {
   background-color: hsl(var(--secondary));
 }
 
+.p-0{
+  padding: 0;
+}
+
 .p-1 {
   padding: 0.5rem;
 }
