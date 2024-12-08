@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 // import custom components
 import { Chart } from './../components/ui/CircuitChart';
 import CircuitStructureTable from '../components/ui/CircuitStructureTable';
+import { circuitPresets } from '../components/ui/CircuitPresets';
 
 
 
