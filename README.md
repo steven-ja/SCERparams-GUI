@@ -49,7 +49,7 @@ pnpm run tauri build
 
 
 ## Roadmap
-- [ ] all configurations in one tab
-- [ ] canvas/ grid-array -> add button to add rows/ columns -> move bettwen them with arrows
+- [x] all configurations in one tab
+- [x] canvas/ grid-array -> add button to add rows/ columns -> move bettwen them with arrows
 - [ ] write in rust a function to generate the config/ matlab file
-- [ ] add all plot options (in config tab)
+- [x] add all plot options (in config tab)
