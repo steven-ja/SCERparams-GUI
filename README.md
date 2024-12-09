@@ -12,8 +12,8 @@ This repository contains the source code for a GUI that allows to set parameters
 ### Installation
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/scerpa-config-generator.git
-cd scerpa-config-generator
+git clone https://github.com/rageSpin/SCERparams-GUI.git
+cd SCERparams
 
 # Install dependencies
 pnpm install
