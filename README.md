@@ -1,5 +1,7 @@
 # SCERparams-GUI
 
+[![GitHub version](https://badge.fury.io/gh/Naereen%2FStrapDown.js.svg)](https://github.com/rageSpin/)
+
 This repository contains the source code for a GUI that allows to set parameters of SCERPA simulations.
 
 ## Project Setup 
@@ -53,3 +55,8 @@ pnpm run tauri build
 - [x] canvas/ grid-array -> add button to add rows/ columns -> move bettwen them with arrows
 - [ ] write in rust a function to generate the config/ matlab file
 - [x] add all plot options (in config tab)
+
+## References
+* [![DOI](https://zenodo.org/badge/577664003.svg)](https://zenodo.org/badge/latestdoi/577664003)
+* [![References](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/vlsi-nanocomputing/SCERPA) [SCERPA](https://github.com/vlsi-nanocomputing/SCERPA) 
+
