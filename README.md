@@ -57,6 +57,6 @@ pnpm run tauri build
 - [x] add all plot options (in config tab)
 
 ## References
-* [![DOI](https://zenodo.org/badge/577664003.svg)](https://zenodo.org/badge/latestdoi/577664003)
-* [![References](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/vlsi-nanocomputing/SCERPA) [SCERPA](https://github.com/vlsi-nanocomputing/SCERPA) 
+[![DOI](https://zenodo.org/badge/577664003.svg)](https://zenodo.org/badge/latestdoi/577664003) [![References](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/vlsi-nanocomputing/SCERPA)  
+[SCERPA](https://github.com/vlsi-nanocomputing/SCERPA) 
 
