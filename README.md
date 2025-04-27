@@ -5,7 +5,7 @@
 This repository contains the source code for a GUI that allows to set parameters of SCERPA simulations.
 
 
-![](assets\image.png)
+![](https://github.com/steven-ja/SCERparams-GUI/blob/main/assets/image.png)
 
 ## Project Setup
 
