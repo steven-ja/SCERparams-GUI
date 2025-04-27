@@ -2,14 +2,19 @@
 
 This repository contains the source code for a GUI that allows to set parameters of SCERPA simulations.
 
-## Project Setup 
+
+![](assets\image.png)
+
+## Project Setup
 
 ### Prerequisites
+
 - Rust (https://rustup.rs/)
 - Node.js and pnpm
 - Tauri CLI: `pnpm install -g @tauri-apps/cli`
 
 ### Installation
+
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/scerpa-config-generator.git
@@ -20,6 +25,7 @@ pnpm install
 ```
 
 ### Running the Application
+
 ```bash
 # Development mode
 pnpm run tauri dev
@@ -29,27 +35,30 @@ pnpm run tauri build
 ```
 
 ## Features
+
 - Modern GUI for SCERPA simulation configuration
 - Cross-platform support (Windows, Linux and Mac)
 - Easy-to-use configuration management
 
 ## Configuration Options
+
 - Circuit import type selection
 - Molecule configuration (BisFe ...)
 - Intermolecular distance ()
-- Circuit structure 
-- Driver values 
+- Circuit structure
+- Driver values
 - Clock and waveforms settings
 - Plotting options (1D, 2D, 3D plots)
 
 ## Build Requirements
+
 - Rust 1.70.0 or later
 - Node.js 16.14 or later
 - Tauri dependencies for your target platform.
 
-
 ## Roadmap
-- [ ] all configurations in one tab
-- [ ] canvas/ grid-array -> add button to add rows/ columns -> move bettwen them with arrows
+
+- [X] all configurations in one tab
+- [X] canvas/ grid-array -> add button to add rows/ columns -> move bettwen them with arrows
 - [ ] write in rust a function to generate the config/ matlab file
 - [ ] add all plot options (in config tab)

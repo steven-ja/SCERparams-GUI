@@ -1,10 +1,48 @@
 // src/lib/matlab/generateMatlabFile.js
 
+// const formatStructureMatrix = (structure) => {
+//     return structure.map(row => 
+//         row.map(cell => typeof cell === 'string' ? `'${cell}'` : cell).join('     ')
+//     ).join(';\n                     ');
+// };
+
+// const formatStructureMatrix = (structure) => {
+//     return structure.map(row => {
+//         // Format each cell and track max length
+//         const formattedCells = row.map(cell => 
+//             typeof cell === 'string' ? `'${cell}'` : cell.toString()
+//         );
+//         const maxLength = Math.max(...formattedCells.map(cell => cell.length));
+        
+//         // Join cells with dynamic padding
+//         return formattedCells.map((cell, i) => {
+//             const padding = ' '.repeat(maxLength - cell.length + 2); // minimum 2 spaces
+//             return i < row.length - 1 ? cell + padding : cell; // no padding for last cell
+//         }).join('');
+//     }).join(';\n                     ');
+// };
+
 const formatStructureMatrix = (structure) => {
+    // First find the maximum length for each column
+    const columnWidths = structure[0].map((_, colIndex) => {
+        return Math.max(...structure.map(row => {
+            const cell = row[colIndex];
+            const formattedCell = typeof cell === 'string' ? `'${cell}'` : cell;
+            return formattedCell.toString().length;
+        }));
+    });
+
+    // Format the matrix with consistent column widths
     return structure.map(row => 
-        row.map(cell => typeof cell === 'string' ? `'${cell}'` : cell).join('     ')
+        row.map((cell, colIndex) => {
+            const formattedCell = typeof cell === 'string' ? `'${cell}'` : cell;
+            const padding = ' '.repeat(columnWidths[colIndex] - formattedCell.toString().length + 2);
+            return colIndex < row.length - 1 ? formattedCell + padding : formattedCell;
+        }).join('')
     ).join(';\n                     ');
 };
+
+
 
 // const formatDrivers = (drivers) => {
 //     return drivers.map(driver => 
