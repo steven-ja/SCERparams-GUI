@@ -59,14 +59,10 @@ pnpm run tauri build
 - Tauri dependencies for your target platform.
 
 ## Roadmap
-<<<<<<< HEAD
+
 
 - [X] all configurations in one tab
 - [X] canvas/ grid-array -> add button to add rows/ columns -> move bettwen them with arrows
-=======
-- [x] all configurations in one tab
-- [x] canvas/ grid-array -> add button to add rows/ columns -> move bettwen them with arrows
->>>>>>> aa2134dec601d83cdd69e7243b479551076cc0e2
 - [ ] write in rust a function to generate the config/ matlab file
 - [x] add all plot options (in config tab)
 
